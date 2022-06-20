@@ -79,6 +79,18 @@ let carriers = [
         fullName: "Granite State Shuttle",
         productTypes: ["vape"]
     },
+    {
+        name: "JET",
+        service: "ST",
+        fullName: "JET Transportation & Logistics",
+        productTypes: ["vape"]
+    },
+    {
+        name: "Deliver-It",
+        service: "ST",
+        fullName: "Deliver IT",
+        productTypes: ["beer", "spirit", "wine"]
+    },
 
 ]
 let keys = ["Origin State", "Origin Zip", "Destination State", "Destination Zip", "Carrier Name", "Carrier Service", "Product Types"]
