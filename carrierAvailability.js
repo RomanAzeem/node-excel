@@ -8,20 +8,20 @@ const createCarrierAvailablityFile = async (carriersList, keys) => {
     let sheetNames = workbook.SheetNames;
     let rawCarriersData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]], { defval: "" });
     let modifiedCarriersData = [];
-    let count = 0;
     for (let rawCarriers of rawCarriersData) {
         if (Object.keys(rawCarriers).length > 0) {
-            let getRequiredCarrier = carriersList.find(list => list["name"] == rawCarriers.Carrier);
-            count++
-            if (typeof getRequiredCarrier !== "undefined" && rawCarriers.Carrier == getRequiredCarrier.name) {
+            let getRequiredCarrier = carriersList.find(list => list["carrierId"] == rawCarriers.Carrier);
+            if (typeof getRequiredCarrier !== "undefined" && rawCarriers.Carrier == getRequiredCarrier.carrierId) {
                 modifiedCarriersData.push({
                     "Origin State": rawCarriers.State,
                     "Origin Zip": rawCarriers.Zip,
                     "Destination State": rawCarriers.State,
                     "Destination Zip": rawCarriers.Zip,
-                    "Carrier Name": rawCarriers.Carrier,
+                    "Carrier Name": getRequiredCarrier.fullName,
+                    "Carrier ID": rawCarriers.Carrier,
                     "Carrier Service": getRequiredCarrier.service,
-                    "Product Types": getRequiredCarrier.productTypes
+                    "Product Types": getRequiredCarrier.productTypes,
+                    "Rate": getRequiredCarrier.Rate
                 })
             }
         }
@@ -44,55 +44,88 @@ const createCarrierAvailablityFile = async (carriersList, keys) => {
 
 let carriers = [
     {
-        name: "PROMED",
         service: "ST",
-        fullName: "ProMed",
-        productTypes: ["beer", "spirit", "vape", "wine"]
+        carrierId: "PRMD",
+        fullName: "ProMed Delivery",
+        productTypes: "beer,spirit,wine,vape",
+        Rate: "20.00"
+
     },
     {
-        name: "ZIP",
         service: "ST",
-        fullName: "ZIP",
-        productTypes: ["beer", "spirit", "vape"]
+        carrierId: "ZIP",
+        fullName: "Zip Express",
+        productTypes: "beer,spirit,vape",
+        Rate: "20.00"
+
     },
     {
-        name: "MERC",
         service: "ST",
+        carrierId: "MERC",
         fullName: "Mercury",
-        productTypes: ["beer", "spirit", "vape", "wine"]
+        productTypes: "beer,spirit,wine,vape",
+        Rate: "20.00"
+
     },
     {
-        name: "STAT",
         service: "ST",
+        carrierId: "STAT",
         fullName: "STAT Overnight",
-        productTypes: ["beer", "spirit", "vape", "wine"]
+        productTypes: "beer,spirit,wine,vape",
+        Rate: "11.99"
+
     },
     {
-        name: "SONIC",
         service: "ST",
-        fullName: "SONIC",
-        productTypes: ["beer", "spirit", "vape", "wine"]
+        carrierId: "SONIC",
+        fullName: "Sonic Systems Inc",
+        productTypes: "beer,spirit,wine,vape",
+        Rate: "20.00"
+
     },
     {
-        name: "Granite State Shuttle",
         service: "ST",
+        carrierId: "GS",
         fullName: "Granite State Shuttle",
-        productTypes: ["vape"]
+        productTypes: "vape",
+        Rate: "20.00"
+
     },
     {
-        name: "JET",
         service: "ST",
+        carrierId: "JTL",
         fullName: "JET Transportation & Logistics",
-        productTypes: ["vape"]
+        productTypes: "vape",
+        Rate: "20.00"
+
     },
     {
-        name: "Deliver-It",
         service: "ST",
-        fullName: "Deliver IT",
-        productTypes: ["beer", "spirit", "wine"]
+        carrierId: "AEX",
+        fullName: "American Eagle Express",
+        productTypes: "vape",
+        Rate: "20.00"
+
+    },
+    {
+        service: "ST",
+        carrierId: "GLS",
+        fullName: "General Logistics Systems",
+        productTypes: "beer,spirit,wine",
+        Rate: "20.00"
+
+    },
+    {
+        service: "ST",
+        carrierId: "DI",
+        fullName: "DeliverIT",
+        productTypes: "beer,spirit,wine,vape",
+        Rate: "20.00"
+
     },
 
 ]
-let keys = ["Origin State", "Origin Zip", "Destination State", "Destination Zip", "Carrier Name", "Carrier Service", "Product Types"]
+let keys = ["Origin State", "Origin Zip", "Destination State", "Destination Zip", "Carrier Name", "Carrier ID",
+    "Carrier Service", "Product Types", "Rate"]
 
 createCarrierAvailablityFile(carriers, keys);
