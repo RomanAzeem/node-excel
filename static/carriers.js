@@ -90,6 +90,15 @@ module.exports = {
             Rate: "20.00"
 
         },
+        {
+            service: "ST",
+            carrierId: "CSL",
+            additionalCarrierID: "CS Logistics",
+            fullName: "CS Logistics",
+            productTypes: "vape",
+            Rate: "20.00"
+
+        },
 
     ]
 }
