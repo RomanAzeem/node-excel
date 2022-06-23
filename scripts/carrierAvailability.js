@@ -18,7 +18,7 @@ const createCarrierAvailablityFile = async (carriersList, keys) => {
                     "Destination State": rawCarriers.State,
                     "Destination Zip": rawCarriers.Zip,
                     "Carrier Name": getRequiredCarrier.fullName,
-                    "Carrier ID": rawCarriers.Carrier,
+                    "Carrier ID": getRequiredCarrier.carrierId,
                     "Carrier Service": getRequiredCarrier.service,
                     "Product Types": getRequiredCarrier.productTypes,
                     "Rate": getRequiredCarrier.Rate
